@@ -1,3 +1,16 @@
+# TODO go from elf to hex
+# TODO upload rule
+# TODO pull out bikecompy specifics
+# TODO small Makefile that includes mard.mk
+# TODO sane defaults for search paths?
+# TODO README
+# TODO include paths using only .h files, and doing so recursively
+# TODO vpaths recursive, too
+# TODO check on overriding of flags?
+# TODO maybe do something different with board? maybe not generate makefile? maybe eval?
+# TODO -include file for preprocessor to auto-include WProgram (check if already?)
+# TODO see if we can get rid of --allow-multiple-definition
+
 BOARD=atmega328
 
 include board.mk
