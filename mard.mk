@@ -10,6 +10,8 @@
 # TODO maybe do something different with board? maybe not generate makefile? maybe eval?
 # TODO -include file for preprocessor to auto-include WProgram (check if already?)
 # TODO see if we can get rid of --allow-multiple-definition
+# Here's some info on multiple defs errors:
+# http://www.avrfreaks.net/index.php?name=PNphpBB2&file=printview&t=97763&start=0
 
 BOARD=atmega328
 
