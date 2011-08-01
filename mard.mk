@@ -3,7 +3,6 @@
 # TODO pull out bikecompy specifics
 # TODO small Makefile that includes mard.mk
 # TODO sane defaults for search paths?
-# TODO README
 # TODO include paths using only .h files, and doing so recursively
 # TODO vpaths recursive, too
 # TODO check on overriding of flags?

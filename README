@@ -1,0 +1,48 @@
+A makefile to be included from a small, configuration makefile in
+your arduino sketch dir. It tries to have enough sane defaults that
+you ought to be able to simply include it or copy it into the dir
+as Makefile. At the very least, you should probably set BOARD to the
+proper value and include.
+
+e.g.
+
+BOARD=atmega328
+include /path/to/mard.mk
+
+Typical values to set are as follows:
+
+BOARD
+COREH
+HARDWARE
+ALIBS
+ALIBPATH
+TARGET
+
+BOARD is the board tag for your target environment. This is how the clock
+speed, mcu and f_cpu values are found, from $(HARDWARE)/boards.txt
+From there, it creates a board.mk file, which is also included. board.mk
+defines various variables from the definitions for that board in boards.txt
+
+COREH is a list of core include files used by your program, such as
+wiring.h or WProgram.h. These can be listed by just name, e.g.
+"HardwareSerial wiring" or with the extension "HardwareSerial.h
+wiring.h".
+
+HARDWARE is the path to the arduino hardware directory, usually (and by
+default) /usr/share/arduino/hardware/arduino
+
+ALIBS is a list of arduino library addons to use, like LiquidCrystal or
+MeetAndroid. Simply list each one you use by name. e.g.
+ALIBS=MeetAndroid Wire
+
+ALIBPATH is the path where the ALIBS are found. You can list multiple
+paths, seperated by space. The first path found that works for each ALIB
+will be the one used. e.g. ALIBPATH=libs /usr/share/android/libraries
+
+TARGET is the name of your program, aka the name of your directory. This
+is what will ultimately be built, giving you $(TARGET).hex (and possibly
+uploading it) It will be set to the name of your directory by default.
+
+Other things can be overridden, such CC, CFLAGS, CXX, CXXFLAGS, etc.
+CC and CXX are already set to avr-gxx versions, but may need to be set
+with the full path on your system if it can't find them.
