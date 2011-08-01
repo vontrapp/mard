@@ -18,15 +18,16 @@ ALIBS
 ALIBPATH
 TARGET
 
-BOARD is the board tag for your target environment. This is how the clock
-speed, mcu and f_cpu values are found, from $(HARDWARE)/boards.txt
+BOARD is the board tag for your target environment. This is how the
+clock speed, mcu and f_cpu values are found, from $(HARDWARE)/boards.txt
 From there, it creates a board.mk file, which is also included. board.mk
-defines various variables from the definitions for that board in boards.txt
+defines various variables from the definitions for that board in
+boards.txt. Defaults to uno
 
 COREH is a list of core include files used by your program, such as
 wiring.h or WProgram.h. These can be listed by just name, e.g.
 "HardwareSerial wiring" or with the extension "HardwareSerial.h
-wiring.h".
+wiring.h". COREH has no defaults.
 
 HARDWARE is the path to the arduino hardware directory, usually (and by
 default) /usr/share/arduino/hardware/arduino
@@ -38,10 +39,15 @@ ALIBS=MeetAndroid Wire
 ALIBPATH is the path where the ALIBS are found. You can list multiple
 paths, seperated by space. The first path found that works for each ALIB
 will be the one used. e.g. ALIBPATH=libs /usr/share/android/libraries
+Default is /usr/share/android/libraries
 
 TARGET is the name of your program, aka the name of your directory. This
-is what will ultimately be built, giving you $(TARGET).hex (and possibly
-uploading it) It will be set to the name of your directory by default.
+is what will ultimately be built (and possibly uploaded) It will be set
+to the name of your directory by default.  The default goal will be to
+build $(TARGET).$(BOARD).hex, building the executable $(TARGET).$(BOARD)
+along the way. BOARD is included in the final output as a clear
+communication of what board was built for (so you don't have to double
+check board.mk to be sure)
 
 Other things can be overridden, such CC, CFLAGS, CXX, CXXFLAGS, etc.
 CC and CXX are already set to avr-gxx versions, but may need to be set
