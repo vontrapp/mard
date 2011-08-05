@@ -1,10 +1,8 @@
-# TODO go from elf to hex
 # TODO upload rule
 # TODO sane defaults for search paths?
 # i think so...
 # TODO include paths using only .h files, and doing so recursively
 # TODO vpaths recursive, too
-# DONE check on overriding of flags?
 # can do this in starting makefile - *after* the include using += or just =
 # TODO maybe do something different with board? maybe not generate makefile? maybe eval?
 # TODO see if we can get rid of --allow-multiple-definition
@@ -62,12 +60,20 @@ LDFLAGS=-Os -Wl,--gc-sections -mmcu=$(BUILD_MCU) -Wl,--allow-multiple-definition
 CC=avr-gcc
 CXX=avr-g++
 AR=avr-ar
+OBJCOPY=avr-objcopy
+OBJDUMP=avr-objdump
+ASIZE=avr-size
 
 ARD_OBJS := $(patsubst $(CORE)/%.c,%.o,$(wildcard $(CORE)/*.c))
 ARD_OBJS := $(ARD_OBJS) $(patsubst $(CORE)/%.cpp,%.o,$(wildcard $(CORE)/*.cpp))
 
-$(TARGET).$(BOARD): $(TARGET).o $(addsuffix .a,$(ALIBS)) core.a
+$(TARGET).$(BOARD).hex:
+
+%.$(BOARD).elf: %.o $(addsuffix .a,$(ALIBS)) core.a
 	$(CC) $(LDFLAGS) -o $@ $+
+
+%.hex: %.elf
+	$(OBJCOPY) -O ihex -R .eeprom $< $@
 
 %.o: %.pde board.mk
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(PDEFLAGS) -o $@ -c $<
@@ -89,8 +95,8 @@ endif
 
 .PHONY: clean clean-all upload .FORCE
 clean:
-	rm -f *.a *.o $(TARGET).$(BOARD) $(TARGET).$(BOARD).hex
+	rm -f *.a *.o $(TARGET).$(BOARD).elf $(TARGET).$(BOARD).hex
 
 # clean up all (known) boards
 clean-all:
-	rm -f $(wildcard $(addprefix $(TARGET).,$(shell grep build\.core $(HARDWARE)/boards.txt | cut -d. -f1))) *.hex
+	rm -f *.elf *.hex
