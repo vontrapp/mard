@@ -3,7 +3,6 @@
 # i think so...
 # TODO include paths using only .h files, and doing so recursively
 # TODO vpaths recursive, too
-# can do this in starting makefile - *after* the include using += or just =
 # TODO maybe do something different with board? maybe not generate makefile? maybe eval?
 # TODO see if we can get rid of --allow-multiple-definition
 # Here's some info on multiple defs errors:

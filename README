@@ -44,11 +44,11 @@ Default is /usr/share/android/libraries
 TARGET is the name of your program, aka the name of your directory. This
 is what will ultimately be built (and possibly uploaded) It will be set
 to the name of your directory by default.  The default goal will be to
-build $(TARGET).$(BOARD).hex, building the executable $(TARGET).$(BOARD)
-along the way. BOARD is included in the final output as a clear
-communication of what board was built for (so you don't have to double
-check board.mk to be sure)
+build $(TARGET).$(BOARD).hex, building the executable
+$(TARGET).$(BOARD).elf along the way. BOARD is included in the final
+output as a clear communication of what board was built for (so you
+don't have to double check board.mk to be sure)
 
-Other things can be overridden, such CC, CFLAGS, CXX, CXXFLAGS, etc.
+Other things can be overridden, such as CC, CFLAGS, CXX, CXXFLAGS, etc.
 CC and CXX are already set to avr-gxx versions, but may need to be set
 with the full path on your system if it can't find them.
